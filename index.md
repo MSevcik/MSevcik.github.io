@@ -10,8 +10,8 @@ Táto stránka vznikla ako projekt na predmet Webové Publikovanie. Na vygenerov
 
 ### [**Blog**](/blog)
 
-### [**Webove Publikovanie**](/wp)
+### [**Webové Publikovanie**](/wp)
 
-### [**Záujmy**](/zaujmy)
+### [**Hobby**](/hobby)
 
 ### [**O mne**](/about)
