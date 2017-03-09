@@ -8,9 +8,8 @@ layout: default
 		{% endfor %}
 	</ol>
 	<div class="carousel-inner" role="listbox">
-		{% for post in site.posts %}
+		{% for post in site.posts limit:3%}
 			{% assign loopindex = forloop.index %}
-			{% if loopindex == 4 %}{% break %}{% endif %}
 	        <div class="item {% if loopindex == 1 %}{{'active'}}{% endif %}">
 				<img style="min-width:100%;height:400px" src="{{post.img}}">
 	      			<div class="container">
