@@ -1,0 +1,4 @@
+wp:
+  - name: Zadanie 1. Osobná webová prezentácia na GitHub pages
+    link: /wp/first
+    desc: Vytvorit statické webové sídlo pomocou Jekyll a Github pages. Vnútri je opísané ako som pri vytváraní postupoval.
