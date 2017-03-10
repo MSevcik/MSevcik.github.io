@@ -1,0 +1,22 @@
+---
+layout: default
+---
+<div style="margin-top: 70px"></div>
+<div class="container text-center">
+	<h1>{{page.title}}</h1>
+	<h1><small>{{page.date | date_to_string}}</small></h1>
+	<div style="margin-top:5px;margin-bottom:5px;height: 3px;background-color: #b7b7b7;border-radius:5px;opacity:0.7"></div>
+	{% if page.img %}
+	<img style="width: 100%;height: 400px"src="{{page.img}}"/>
+	{% endif %}
+	<div style="font-size: 25px;padding-top: 10px">{{content}}<div>
+</div>
+<hr></hr>
+<div class="container text-center">
+	<h1>Najnovšie články</h1>
+	<div class="row">
+		{% for post in site.posts limit:3%}
+		<div style="border-color:gray;border-style:solid;padding: 5px" class="col-md-4"><a href="{{post.url}}"><h1>{{ post.title }}</h1></div>
+		{% endfor %}
+	</div>
+</div>
