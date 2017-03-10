@@ -16,7 +16,7 @@ layout: default
 	<h1>Najnovšie články</h1>
 	<div class="row">
 		{% for post in site.posts limit:3%}
-		<div style="border-color:gray;border-style:solid;padding: 5px" class="col-md-4"><a href="{{post.url}}"><h1>{{ post.title }}</h1></div>
+		<div style="border-radius:5px;border-width:1px;border-color:gray;border-style:solid;padding: 5px" class="col-md-4"><a href="{{post.url}}"><h3>{{ post.title }}</h3></div>
 		{% endfor %}
 	</div>
 </div>
