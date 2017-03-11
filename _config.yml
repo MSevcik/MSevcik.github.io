@@ -23,6 +23,8 @@ markdown: kramdown
 theme: minima
 gems:
   - jekyll-feed
+  - liquid_reading_time
+  - jekyll-toc
 exlude:
   - Gemfile
   - Gemfile.lock
