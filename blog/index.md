@@ -17,10 +17,10 @@ layout: default
 	<p style="margin: 10px;font-size:20px">
 		{{ post.content | strip_html | truncatewords:100 }}
 	</p>
+	{% unless site.safe %}
 	{% capture time %}{{ post.content | reading_time }}{% endcapture %}
-	{% if time%}
 	<h3 style="margin: 10px;">Dĺžka článku (v minútach): {{ time }}</h3>
-	{% endif %}
+	{% endunless %}
 	<div style="height: 2px;background-color: #b7b7b7;border-radius:5px;opacity:0.5"></div>
 </div>
 {% endfor %}
