@@ -2,3 +2,6 @@ wp:
   - name: Zadanie 1. Osobná webová prezentácia na GitHub pages
     link: /blog/2017/03/11/wp-zadanie1
     desc: Vytvorit statické webové sídlo pomocou Jekyll a Github pages. Vnútri je opísané ako som pri vytváraní postupoval.
+  - name: Zadanie 2. Transformácia vybraného dokumentu do formátu DocBook
+    link: /blog/2017/03/26/wp-zadanie2
+    desc: Spracovanie vybraného dokumentu (ideálne bakalárskeho projektu) z pôvodného ľubovoľného (Word, OpenOffice, LaTeX, …) formátu do formátu DocBook.

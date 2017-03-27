@@ -1,0 +1,54 @@
+---
+layout: post
+title:  "Webové Publikovanie Zadanie 2"
+date:   2017-03-26 09:17:00 +0100
+categories: jekyll update
+toc: true
+---
+# Intro
+
+Ako druhé zadanie na Webové Publikovanie sme mali pretransformovať napríklad bakalársku prácu do formátu docbook. Základné podmienky ktoré bolo treba splniť boli nasledovné:
+
+- štandardné členenie textu na kapitola, podkapitola, podpodkapitola, príloha, generovaný obsah,
+- zvýraznenie slov, zvýraznenie členenia textu odrážkami alebo číslovaním,
+- odkazy na iné časti vlastného dokumentu, prípadne odkazy na URL,
+- poznámka pod čiarou,
+- zoznam použitej literatúry a zdrojov vrátane ich citácie v texte,
+- vloženie obrázku a tabuliek, odkazy na ne v texte; zoznam obrázkov a tabuliek v úvode alebo závere textu,
+- vytvorenie registra pojmov (indexu) s pojmami hierarchicky usporiadanými do dvoch úrovni, napríklad „cykly, while“, „cykly, for“ (najmenej ako ukážku na 10-15 pojmoch na predvedenie práce s registrom).
+
+V tomto článku postupne prejdem všetkými bodmi a popíšem kde sa čo nachádza.
+
+# Členenie textu
+
+Dokument obsahuje 2 kapitoli (tag chapter) pričom prvá ma jednu podkapitolu a druhá ma dve podkapitoly (tag section). Dokument obsahuje prílohu vo forme plánu na další semester. Rovnako je použitý aj generovaný obsah ktorý bol vygenerovaný pomocou tagu v thesis.xsl.
+
+{% highlight xml %}
+	<xsl:param name="generate.toc">
+		book      title,toc
+	</xsl:param>
+{% endhighlight %}
+
+# Zvýraznenie
+
+V dokumente je niekolko listov s odrážkami (tag itemizedlist) a veľa zvýraznených slov pomocou tagu emphasis.
+
+# Odkazy
+
+Odkazy su súčasťou textu. Napríklad samotný obsah odkazuje na strany dokumentu, citácie odkazujú na ich záznam v bibliografii. Tag xref. Alebo ulink v prípade url.
+
+# Poznámka pod čiarou
+
+Poznámka pod čiarou bola pridaná do textu viac menej nasilu, keďže to bola povinná súčasť, nachádza sa v nej odkaz kde sa k danej veci dá nájsť viac. Tag footnote.
+
+# Literatúra
+
+Práca obsahuje veľa zdrojov. Všetky sú uvedené v bibliografii. Na záznam bol použitý tag biblioentry z docbooku. Aby sa dali citovať každý entry má svoje id na ktoré sa v texte odkazujem.
+
+# Figures a register
+
+Dokument tiež obsahuje niekoľko obrázkov na ktoré boli použité tagy figure, imageobject, imagedata. A takisto obsahuje niekoľko tabuliek (tag table) a rovníc (tag equation). Na každú s týchto vecí sa niekde v texte odkazujem a na začiatku práce je list týchto konštrukcií. Generované sú v rovnakom riadku thesis.xsl ako obsah.
+<xsl:param name="generate.toc">
+	book      title,toc,figure,table
+</xsl:param>
+Rovnako tak obsahuje niekoľko pojmov ktoré vytváraju index pojmov. Delil som ich podľa opisovaných metód a dvôležitých častí týchto metód.
