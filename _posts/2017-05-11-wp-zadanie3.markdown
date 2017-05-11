@@ -1,0 +1,73 @@
+---
+layout: post
+title:  "Webové Publikovanie Zadanie 3"
+date:   2017-05-10 09:28:00 +0100
+categories: jekyll update
+toc: true
+---
+# Intro
+
+Ako tretie zadanie na Webové Publikovanie sme mali splniť nasledovné požiadavky:
+
+- opis typu dokumentu + opis účelu navrhnutých elementov - možnosť výberu (práve jedného) z variantov:
+	- DTD (max 3 body)
+	- XML Schema (max 4 body)
+	- RELAX NG (max 4+1 bodov)	- vytvorenie ukážkovej XML prezentácie demonštrujúcej možnosti definície typu dokumentu (max 2 body)
+- základný návrh XSL transformácií, ich vhodnosť, parametrizácia (max 3 body)
+- vytvorenie XSLT pre konverziu prezentácie z XML -> XHTML+CSS (max 3 body) 
+  - každý slide bude v samostatnom XHTML súbore
+- vytvorenie XSLT pre konverziu prezentácie XML -> PDF (max 2 body)
+
+V tomto článku postupne prejdem všetkými bodmi a popíšem kde sa čo nachádza.
+
+# Opis typu dokumentu
+
+Dokument som sa rozhodol opísať pomocou DTD súboru. Súbor obsahuje niekoľko elementov opísaných pomocou tagu ```<!ELEMENT nazov (deti)>``` napríklad opis pre slide vyzerá nasledovne:
+```<!ELEMENT slide (nadpis,(telo_text|telo_obrazok|telo_text_obrazok|telo_list|telo_list_obrazok|telo_tabulka))>```.
+Hovorí to o tom, že element slide musí obsahovať nadpis a jedno z výberu tiel. Pričom tieto elemnty sú v DTD ďalej opísané a ich poradie je povinné dodržať. DTD tiež obsahuje ```<!ATTLIST>``` tag, ktorý určuje typ slajdu. Tento atribút sa používa v CSS pre zjednodušenie štýlovania HTML súboru.
+
+# XSL Transformácie
+
+Zadanie obsahuje transformácie do HTML aj do PDF. Obsahuje tiež súbor, ktorý includujú oba xsl subory. Pre generovanie html slajdov do zvlášť súborov bolo potrebné použiť xslt vo verzii 2.0. Používa sa na to tag ```<xsl:result-document href="{position()}.html">```, kde position urcuje, koľký slajd sa spracúva. Na prechod cez všetky slajdy sa používa tag ```<xsl:for-each select="prezentacia/slide">```. Na to aby xsl vedeľ, na čo ma aplikovať akú transformáciu sa používajú tagy ```<xsl:template match="/">```, kďe atribút match určuje, pre ktorú časť XML je daný template určený. Pri transformáciach používam niekoľko parametrov (```<xsl:param name="cislovanie" select="cis"/>```), ktoré testujem pomocou ```<xsl:if test="$cislovanie = 1">``` na to aby som mohol parametrizovať dané transformácie. Tag ```<xsl:value-of select="."/>``` sa používa ak chcem získať hodnotu daného elementu, v tomto konkrétnom prípade ide o "seba".
+
+Ukážka krátkeho kódu transformovania obrázku do HTML:
+```
+<xsl:template match="obrazok">
+	<img>
+		<xsl:attribute name="src">
+			<xsl:value-of select="."/>
+		</xsl:attribute>
+	</img>
+</xsl:template>
+```
+
+V prípade pdf bol postup veľmi podobný. Namiesto HTML tagov sa však používali fo objekty. Najviac používaný bol ```<fo:block>```, ktorý predstavuje niečo podobné ako ```<div>``` v html. Najdôležitejším tagom v prípade pdf bol:
+```
+<fo:layout-master-set>
+		<fo:simple-page-master master-name="strana" page-width="16cm" page-height="12cm" margin-top="0cm" margin-bottom="0cm" margin-left="0cm"  margin-right="0cm">
+			<fo:region-body   margin="4mm"/>
+			<fo:region-after  extent="7mm" border-top-style="inset"/>
+		</fo:simple-page-master>
+	</fo:layout-master-set>,
+```
+ktorý určuje veľkosť jedného slidu, ktorá je 4:3, a tiež určuje veľkosti rozdelenia strany.
+Pre ukážku PDF transformácie tu je transformácia obrázku do PDF:
+```
+<xsl:template match="obrazok">
+	<fo:external-graphic src="url({.})">
+		<xsl:choose>
+			<xsl:when test="../name() = 'telo_obrazok' or ../name() = 'telo_text_obrazok'">
+				<xsl:attribute name="width">14cm</xsl:attribute>
+				<xsl:attribute name="margin-left">6mm</xsl:attribute>
+				<xsl:attribute name="content-width">scale-to-fit</xsl:attribute>
+				<xsl:attribute name="scaling">uniform</xsl:attribute>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:attribute name="width">100%</xsl:attribute>
+				<xsl:attribute name="content-width">scale-to-fit</xsl:attribute>
+				<xsl:attribute name="scaling">uniform</xsl:attribute>
+			</xsl:otherwise>
+		</xsl:choose>
+	</fo:external-graphic>
+</xsl:template>
+```

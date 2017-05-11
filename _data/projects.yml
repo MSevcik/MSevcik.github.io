@@ -5,3 +5,6 @@ wp:
   - name: Zadanie 2. Transformácia vybraného dokumentu do formátu DocBook
     link: /blog/2017/03/26/wp-zadanie2
     desc: Spracovanie vybraného dokumentu (ideálne bakalárskeho projektu) z pôvodného ľubovoľného (Word, OpenOffice, LaTeX, …) formátu do formátu DocBook.
+  - name: Zadanie 3. XML prezentácia
+    link: /blog/2017/05/10/wp-zadanie3
+    desc: Transformácia XML prezentácie do HTML a PDF pomocou XSLT transformácií.
